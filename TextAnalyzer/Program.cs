@@ -170,7 +170,13 @@ namespace TextAnalyzer
                     line = sr.ReadLine(); //each time you read a line you should split it into the words
                     line.Trim();
                     fields = line.Split(delim.ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
-                    counter += fields.Length; //and just add how many of them there is
+                    foreach (var item in fields)
+                    {
+                        if (item.Length > 1)
+                        {
+                            counter++;
+                        }
+                    }
                 }
 
 
