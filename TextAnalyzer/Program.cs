@@ -92,7 +92,7 @@ namespace TextAnalyzer
                 path = Console.ReadLine();
                 try
                 {
-                    Client.DownloadFile(path, "C:1.txt");
+                    Client.DownloadFile(path, "1.txt");
                     Console.WriteLine("File downloaded succesfully");
                 }
                 catch (ArgumentException e)
@@ -123,12 +123,28 @@ namespace TextAnalyzer
 
         public static int CountLetters()
         {
-
-            if (File.Exists(varia.filen))
+            if (File.Exists("1.txt"))
             {
-                string text = File.ReadAllText(varia.filen);
-                Console.WriteLine("Number of letters in file: " + text.Count(char.IsLetter));
-                return text.Count(char.IsLetter);
+                string text = File.ReadAllText("1.txt");
+                int i, len, vowel_count, cons_count;
+                vowel_count = 0;
+                cons_count = 0;
+                len = text.Length;
+                for (i = 0; i < len; i++)
+                {
+                    if (text[i] == 'a' || text[i] == 'e' || text[i] == 'i' || text[i] == 'o' || text[i] == 'u' || text[i] == 'A'
+                       || text[i] == 'E' || text[i] == 'I' || text[i] == 'O' || text[i] == 'U')
+                    {
+                        vowel_count++;
+                    }
+                    else if ((text[i] >= 'a' && text[i] <= 'z') || (text[i] >= 'A' && text[i] <= 'Z'))
+                    {
+                        cons_count++;
+                    }
+                }
+                Console.Write("\nVowel in the string: {0}\n", vowel_count);
+                Console.Write("Consonant in the string: {0}\n\n", cons_count);
+                return 0;
             }
             else
             {
