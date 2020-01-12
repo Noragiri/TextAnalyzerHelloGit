@@ -198,10 +198,17 @@ namespace TextAnalyzer
         {
             if (File.Exists(varia.filen))
             {
+                int counter = 0;
                 string text = File.ReadAllText(varia.filen);
-                Console.WriteLine("Number of punctuation in file: " + text.Count(char.IsPunctuation));
-
-                return text.Count(char.IsPunctuation);
+                foreach (char item in text)
+                {
+                    if (item=='.'||item=='?')
+                    {
+                        counter++;
+                    }
+                }
+                Console.WriteLine("Number of punctuation(dots and question marks) in file: " + counter);
+                return counter;
             }
             else
             {
