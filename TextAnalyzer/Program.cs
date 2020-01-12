@@ -44,19 +44,19 @@ namespace TextAnalyzer
                         Filedown();
                         break;
                     case 2:
-                        CountLetters();
+                        CountLetters(0);
                         Console.ReadKey();
                         break;
                     case 3:
-                        CountWord();
+                        CountWord(0);
                         Console.ReadKey();
                         break;
                     case 4:
-                        CountPunctuation();
+                        CountPunctuation(0);
                         Console.ReadKey();
                         break;
                     case 5:
-                        CountSentences();
+                        CountSentences(0);
                         Console.ReadKey();
                         break;
                     case 6:
@@ -121,7 +121,7 @@ namespace TextAnalyzer
             Console.ReadKey();
         }
 
-        public static int CountLetters()
+        public static int[] CountLetters(int x)
         {
             if (File.Exists("1.txt"))
             {
@@ -142,18 +142,24 @@ namespace TextAnalyzer
                         cons_count++;
                     }
                 }
-                Console.Write("\nVowel in the string: {0}\n", vowel_count);
-                Console.Write("Consonant in the string: {0}\n\n", cons_count);
-                return 0;
+                if (x == 0)
+                {
+                    Console.WriteLine("Vowel in the string: {0}", vowel_count);
+                    Console.WriteLine("Consonant in the string: {0}", cons_count);
+                }
+
+
+                int[] LetterCount = new int[] { vowel_count, cons_count };
+                return LetterCount;
             }
             else
             {
                 Console.WriteLine("No file found");
-                return 0;
+                return null;
             }
 
         }
-        public static int CountWord()
+        public static int CountWord(int x)
         {
             if (File.Exists(varia.filen))
             {
@@ -181,7 +187,11 @@ namespace TextAnalyzer
 
 
                 sr.Close();
-                Console.WriteLine("The word count is {0}", counter);
+                if (x == 0)
+                {
+                    Console.WriteLine("The word count is {0}", counter);
+                }
+
 
                 return counter;
             }
@@ -194,7 +204,7 @@ namespace TextAnalyzer
 
 
         }
-        public static int CountPunctuation()
+        public static int CountPunctuation(int x)
         {
             if (File.Exists(varia.filen))
             {
@@ -202,12 +212,16 @@ namespace TextAnalyzer
                 string text = File.ReadAllText(varia.filen);
                 foreach (char item in text)
                 {
-                    if (item=='.'||item=='?')
+                    if (item == '.' || item == '?')
                     {
                         counter++;
                     }
                 }
-                Console.WriteLine("Number of punctuation(dots and question marks) in file: " + counter);
+                if (x == 0)
+                {
+                    Console.WriteLine("Number of punctuation(dots and question marks) in file: " + counter);
+                }
+
                 return counter;
             }
             else
@@ -218,7 +232,7 @@ namespace TextAnalyzer
             }
 
         }
-        public static int CountSentences()
+        public static int CountSentences(int x)
         {
             if (File.Exists(varia.filen))
             {
@@ -240,7 +254,11 @@ namespace TextAnalyzer
 
 
                 sr.Close();
-                Console.WriteLine("The sentence count is {0}", counter);
+                if (x == 0)
+                {
+                    Console.WriteLine("The sentence count is {0}", counter);
+                }
+
 
 
                 return counter;
@@ -272,14 +290,17 @@ namespace TextAnalyzer
         public static void Statistics()
         {
             Console.WriteLine("Output to file: ");
-            string[] lines = { "Letter count: " + CountLetters().ToString(), "Word count: " + CountWord().ToString(), "Punctuation count: " + CountPunctuation().ToString(), "Sentences count: " + CountSentences().ToString() };
+            string[] lines = { "Vowel count: " + CountLetters(1)[0].ToString(), "Consonant count: " + CountLetters(1)[1].ToString(), "Word count: " + CountWord(1).ToString(), "Punctuation count(dots and question marks): " + CountPunctuation(1).ToString(), "Sentences count: " + CountSentences(1).ToString() };
             using (StreamWriter outputFile = new StreamWriter("Statystyki.txt"))
             {
                 foreach (string line in lines)
+                {
+                    Console.WriteLine(line);
                     outputFile.WriteLine(line);
+                }
+
             }
         }
     }
 
 }
-
